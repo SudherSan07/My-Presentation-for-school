@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 IoT Masterclass | Final Workable Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+    <div class="background-scene">
+        <div class="glow-orb" id="orb1"></div>
+        <div class="glow-orb" id="orb2"></div>
+        <div class="glow-orb"
+            style="width: 30vw; height: 30vw; background: var(--accent-glow); top: 30%; left: 40%; opacity: 0.2; filter: blur(150px);">
+        </div>
+        <div class="circuit-grid"></div>
+    </div>
+
+    <div class="top-nav">
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 10L25 40L40 10" stroke="url(#logo-grad)" stroke-width="4" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M18 20L32 20" stroke="url(#logo-grad)" stroke-width="2" opacity="0.6" />
+                <path d="M22 30L28 30" stroke="url(#logo-grad)" stroke-width="2" opacity="0.4" />
+                <circle cx="25" cy="40" r="2.5" fill="var(--accent)" />
+                <defs>
+                    <linearGradient id="logo-grad" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="var(--primary)" />
+                        <stop offset="1" stop-color="var(--accent)" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            VIJAYA<span>EMBEDDED</span>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+            <i data-lucide="moon" class="moon-icon"></i>
+            <i data-lucide="sun" class="sun-icon"></i>
+        </button>
+    </div>
+
+    <div class="progress-bar-container">
+        <div class="progress-fill"></div>
+    </div>
+
+    <main id="app">
+
+        <section class="slide active" id="splash">
+            <div class="slide-content text-center">
+                <div class="splash-logo-container">
+                    <svg class="logo-large-icon" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="logo-path" d="M10 10L25 40L40 10" stroke="url(#logo-grad-large)" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <circle class="logo-node" cx="25" cy="40" r="2" fill="var(--accent)" />
+                        <defs>
+                            <linearGradient id="logo-grad-large" x1="0" y1="0" x2="50" y2="50"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="var(--primary)" />
+                                <stop offset="1" stop-color="var(--accent)" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-large">
+                    <span class="vijaya">VIJAYA</span>
+                    <span class="embedded">EMBEDDED</span>
+                </div>
+                <div class="company-subtext">SYSTEM</div>
+                <div class="loading-line"></div>
+                <button class="btn-primary" style="margin-top: 3rem;" onclick="nextSlide()">Enter Experience <i
+                        data-lucide="zap"></i></button>
+            </div>
+        </section>
+
+        <!-- Slide 1: Explore -->
+        <section class="slide" id="explore">
+            <div class="slide-content">
+                <span class="badge">DISCOVER</span>
+                <h2 class="slide-title">Explore our <span class="gradient-text">Ecosystem</span></h2>
+                <div class="dashboard-grid" style="grid-template-columns: repeat(2, 1fr); margin-top: 3rem;">
+                    <div class="dash-card" style="height: 200px;" onclick="goToSlide(3)">
+                        <span style="opacity: 1;"><i data-lucide="layout-grid"></i></span>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem; color: white;">Project Hub</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.7;">Quick access to all 15 projects.</p>
+                        </div>
+                    </div>
+                    <div class="dash-card" style="height: 200px;" onclick="goToSlide(18)">
+                        <span style="opacity: 1;"><i data-lucide="users"></i></span>
+                        <div>
+                            <h3 style="margin-bottom: 0.5rem; color: white;">Connect</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.7;">Socials & Contact Info.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-actions" style="margin-top: 3rem;">
+                    <button class="btn-primary" onclick="nextSlide()">Proceed to Hero <i
+                            data-lucide="arrow-right"></i></button>
+                    <button class="btn-primary"
+                        style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border);"
+                        onclick="goToSlide(3)">Direct to Hub</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Hero -->
+        <section class="slide" id="hero">
+            <div class="slide-content">
+                <div class="hero-text">
+                    <span class="badge">PRO VERSION</span>
+                    <h1 class="main-title">Vijaya <br> <span class="gradient-text">Embedded</span> System</h1>
+                    <p class="subtitle">Premium IoT Projects & Training by <strong>Sudharsan</strong>. Ready-to-Run
+                        ESP32 Guides!</p>
+                    <div class="hero-actions">
+                        <button class="btn-primary" onclick="nextSlide()">Open Project Hub <i
+                                data-lucide="layout-grid"></i></button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-chip">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800"
+                            alt="ESP32 Tech">
+                        <div class="signal-rings"><span></span><span></span><span></span></div>
+                    </div>
+                    <div class="visual-glow"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 1: Hub -->
+        <section class="slide" id="dashboard">
+            <div class="slide-content">
+                <h2 class="slide-title text-center">Interactive <span class="gradient-text">Project Hub</span></h2>
+                <div class="dashboard-grid">
+                    <div class="dash-card" onclick="goToSlide(4)"><span>01</span> LED Control</div>
+                    <div class="dash-card" onclick="goToSlide(5)"><span>02</span> Traffic Light</div>
+                    <div class="dash-card" onclick="goToSlide(6)"><span>03</span> Button Toggle</div>
+                    <div class="dash-card" onclick="goToSlide(7)"><span>04</span> 3-Btn Toggle</div>
+                    <div class="dash-card" onclick="goToSlide(8)"><span>05</span> Bluetooth</div>
+                    <div class="dash-card" onclick="goToSlide(9)"><span>06</span> 3-LED BT</div>
+                    <div class="dash-card" onclick="goToSlide(10)"><span>07</span> Blynk Cloud</div>
+                    <div class="dash-card" onclick="goToSlide(11)"><span>08</span> 3-LED Blynk</div>
+                    <div class="dash-card" onclick="goToSlide(12)"><span>09</span> Web Browser</div>
+                    <div class="dash-card" onclick="goToSlide(13)"><span>10</span> 3-LED Web</div>
+                    <div class="dash-card" onclick="goToSlide(14)"><span>11</span> IR Toggle</div>
+                    <div class="dash-card" onclick="goToSlide(15)"><span>12</span> Climate (IoT)</div>
+                    <div class="dash-card" onclick="goToSlide(16)"><span>13</span> Distance Radar</div>
+                    <div class="dash-card" onclick="goToSlide(17)"><span>14</span> Proximity LED</div>
+                    <div class="dash-card" onclick="goToSlide(18)"><span>15</span> DHT11 Temp</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 1: Basic LED -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 01</span>
+                    <h2 class="slide-title">Basic LED Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="cable"></i> Connections</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>LED Anode (+)</span><span>GPIO 2</span></div>
+                                <div class="pin-row"><span>Resistor (220)</span><span>GND</span></div>
+                            </div>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="help-circle"></i> Instruction</h3>
+                            <p>This program turns the internal LED on and off every 1 second. It's the "Hello World" of
+                                electronics.</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">blink.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#define LED_PIN 2   // GPIO 2
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);   // Set LED pin as output
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH); // LED ON
+  delay(1000);                // 1 second delay
+  digitalWrite(LED_PIN, LOW);  // LED OFF
+  delay(1000);                // 1 second delay
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 2: Traffic Light -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 02</span>
+                    <h2 class="slide-title">Traffic LED Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="cable"></i> Connections</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>Red LED</span><span>GPIO 2</span></div>
+                                <div class="pin-row"><span>Yellow LED</span><span>GPIO 4</span></div>
+                                <div class="pin-row"><span>Green LED</span><span>GPIO 5</span></div>
+                                <div class="pin-row"><span>Common</span><span>GND</span></div>
+                            </div>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="info"></i> Timing</h3>
+                            <p>Red: 5 Seconds | Yellow: 2 Seconds | Green: 5 Seconds. Simulates a real intersection
+                                logic!</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">traffic_light.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#define RED_PIN 2
+#define YELLOW_PIN 4
+#define GREEN_PIN 5
+
+void setup() {
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(YELLOW_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+}
+
+void loop() {
+  // RED Light
+  digitalWrite(RED_PIN, HIGH); delay(5000); digitalWrite(RED_PIN, LOW);
+  
+  // YELLOW Light
+  digitalWrite(YELLOW_PIN, HIGH); delay(2000); digitalWrite(YELLOW_PIN, LOW);
+  
+  // GREEN Light
+  digitalWrite(GREEN_PIN, HIGH); delay(5000); digitalWrite(GREEN_PIN, LOW);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 03: Button Toggle -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 03</span>
+                    <h2 class="slide-title">Button Toggle Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="cable"></i> Connections</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>LED PIN</span><span>GPIO 2</span></div>
+                                <div class="pin-row"><span>BUTTON PIN</span><span>GPIO 18</span></div>
+                                <div class="pin-row"><span>Common</span><span>GND</span></div>
+                            </div>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="info"></i> Toggle Logic</h3>
+                            <p>Press once to Turn ON, press again to Turn OFF. Uses internal pull-up and debounce delay
+                                for stability.</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">button_toggle.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#define LED_PIN     2
+#define BUTTON_PIN  18
+
+bool ledState = false;        // LED OFF initially
+bool lastButtonState = HIGH; // Button not pressed
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+}
+
+void loop() {
+  bool currentButtonState = digitalRead(BUTTON_PIN);
+
+  // Detect button press (HIGH → LOW)
+  if (lastButtonState == HIGH && currentButtonState == LOW) {
+    ledState = !ledState;            // Toggle LED state
+    digitalWrite(LED_PIN, ledState);
+    delay(200); // Simple debounce
+  }
+
+  lastButtonState = currentButtonState;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </section>
+
+        <!-- Project 04: 3-Button Toggle -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 04</span>
+                    <h2 class="slide-title">3-Button LED Toggle</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="cable"></i> Connections</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>LED 1, 2, 3</span><span>GPIO 2, 4, 5</span></div>
+                                <div class="pin-row"><span>Button 1, 2, 3</span><span>GPIO 18, 19, 21</span></div>
+                                <div class="pin-row"><span>Common</span><span>GND</span></div>
+                            </div>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="info"></i> Setup</h3>
+                            <p>Control 3 independent LEDs with 3 buttons. Each button toggles its corresponding LED.
+                                Perfect for multiple output control!</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">multi_toggle.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#define LED1 2
+#define LED2 4
+#define LED3 5
+
+#define BTN1 18
+#define BTN2 19
+#define BTN3 21
+
+bool led1State = false;
+bool led2State = false;
+bool led3State = false;
+
+bool lastBtn1 = HIGH;
+bool lastBtn2 = HIGH;
+bool lastBtn3 = HIGH;
+
+void setup() {
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+
+  pinMode(BTN1, INPUT_PULLUP);
+  pinMode(BTN2, INPUT_PULLUP);
+  pinMode(BTN3, INPUT_PULLUP);
+}
+
+void loop() {
+  bool btn1 = digitalRead(BTN1);
+  bool btn2 = digitalRead(BTN2);
+  bool btn3 = digitalRead(BTN3);
+
+  // Button 1 toggle
+  if (lastBtn1 == HIGH && btn1 == LOW) {
+    led1State = !led1State;
+    digitalWrite(LED1, led1State);
+    delay(200);
+  }
+
+  // Button 2 toggle
+  if (lastBtn2 == HIGH && btn2 == LOW) {
+    led2State = !led2State;
+    digitalWrite(LED2, led2State);
+    delay(200);
+  }
+
+  // Button 3 toggle
+  if (lastBtn3 == HIGH && btn3 == LOW) {
+    led3State = !led3State;
+    digitalWrite(LED3, led3State);
+    delay(200);
+  }
+
+  lastBtn1 = btn1;
+  lastBtn2 = btn2;
+  lastBtn3 = btn3;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 05: Bluetooth (VERIFIED) -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 05</span>
+                    <h2 class="slide-title">Bluetooth LED Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="bluetooth"></i> App Guide</h3>
+                            <p>1. Open "Serial Bluetooth Terminal" app.</p>
+                            <p>2. Pair with: <strong>"ESP32_LED_Control"</strong>.</p>
+                            <p>3. Send '1' for ON | '0' for OFF.</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">bluetooth_led.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#include "BluetoothSerial.h"
+
+BluetoothSerial SerialBT;
+
+#define LED_PIN 2
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+
+  // Start Bluetooth with device name
+  SerialBT.begin("ESP32_LED_Control");
+}
+
+void loop() {
+  if (SerialBT.available()) {
+    char data = SerialBT.read();
+
+    if (data == '1') {
+      digitalWrite(LED_PIN, HIGH);   // LED ON
+      SerialBT.println("LED ON");
+    }
+    else if (data == '0') {
+      digitalWrite(LED_PIN, LOW);    // LED OFF
+      SerialBT.println("LED OFF");
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 06: 3-LED Bluetooth Control -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 06</span>
+                    <h2 class="slide-title">3-LED Bluetooth Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="cable"></i> Connections</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>LED 1</span><span>GPIO 2</span></div>
+                                <div class="pin-row"><span>LED 2</span><span>GPIO 4</span></div>
+                                <div class="pin-row"><span>LED 3</span><span>GPIO 5</span></div>
+                                <div class="pin-row"><span>Common</span><span>GND</span></div>
+                            </div>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="bluetooth"></i> App Guide</h3>
+                            <p>Connect to: <strong>"ESP32_3LED_BT"</strong></p>
+                            <p>Commands: 1,3,5 (ON) | 2,4,6 (OFF)</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">bt_3led.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#include "BluetoothSerial.h"
+
+BluetoothSerial SerialBT;
+
+#define LED1 2
+#define LED2 4
+#define LED3 5
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  SerialBT.begin("ESP32_3LED_BT");
+}
+
+void loop() {
+  if (SerialBT.available()) {
+    char data = SerialBT.read();
+    switch (data) {
+      case '1': digitalWrite(LED1, HIGH); SerialBT.println("LED 1 ON"); break;
+      case '2': digitalWrite(LED1, LOW);  SerialBT.println("LED 1 OFF"); break;
+      case '3': digitalWrite(LED2, HIGH); SerialBT.println("LED 2 ON"); break;
+      case '4': digitalWrite(LED2, LOW);  SerialBT.println("LED 2 OFF"); break;
+      case '5': digitalWrite(LED3, HIGH); SerialBT.println("LED 3 ON"); break;
+      case '6': digitalWrite(LED3, LOW);  SerialBT.println("LED 3 OFF"); break;
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 07: Blynk (VERIFIED MODERN) -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 07</span>
+                    <h2 class="slide-title">Blynk IoT Web Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="cable"></i> Connections</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>LED Anode (+)</span><span>GPIO 2</span></div>
+                                <div class="pin-row"><span>Common</span><span>GND</span></div>
+                            </div>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="smartphone"></i> Blynk App Setup</h3>
+                            <div class="setup-steps" style="font-size: 0.85rem; text-align: left;">
+                                <p><strong>1. Template:</strong> "LED Connections Control With LED" (Hardware: ESP32,
+                                    WiFi)</p>
+                                <p><strong>2. Datastream:</strong> Virtual Pin <strong>V0</strong></p>
+                                <p><strong>3. Widget:</strong> Add <strong>Button</strong>, set to
+                                    <strong>Switch</strong> mode, link to V0.
+                                </p>
+                                <p><strong>4. Code:</strong> Paste Auth Token & WiFi credentials (already in code ✅).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">blynk_iot.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#define BLYNK_PRINT Serial
+
+#define BLYNK_TEMPLATE_ID "TMPL3eEnMSzbx"
+#define BLYNK_TEMPLATE_NAME "LED Conections troll With Led"
+#define BLYNK_AUTH_TOKEN "ZgZWJxTnwB5zQIwLGJEBWTyN7IliqcmR"
+
+#include &lt;WiFi.h&gt;
+#include &lt;WiFiClient.h&gt;
+#include &lt;BlynkSimpleEsp32.h&gt;
+
+// WiFi credentials
+char ssid[] = "AirFiber-Doof9i";
+char pass[] = "Sudhersan@143";
+
+#define LED_PIN 2
+
+// Button widget (V0)
+BLYNK_WRITE(V0)
+{
+  int ledState = param.asInt(); // 1 or 0
+  digitalWrite(LED_PIN, ledState);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(LED_PIN, OUTPUT);
+
+  // Connect to Blynk
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+}
+
+void loop()
+{
+  Blynk.run();
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </section>
+
+        <!-- Project 08: 3-LED Blynk Control -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 08</span>
+                    <h2 class="slide-title">3-LED Blynk Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="cable"></i> Connections</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>LED 1, 2, 3</span><span>GPIO 2, 4, 5</span></div>
+                                <div class="pin-row"><span>Common</span><span>GND</span></div>
+                            </div>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="smartphone"></i> Blynk App Setup (LED3)</h3>
+                            <div class="setup-steps" style="font-size: 0.8rem; text-align: left;">
+                                <p><strong>1. Template:</strong> "LED3" (ESP32, WiFi)</p>
+                                <p><strong>2. Red Button:</strong> LED 1 (V0, Switch)</p>
+                                <p><strong>3. Green Button:</strong> LED 2 (V1, Switch)</p>
+                                <p><strong>4. Blue Button:</strong> LED 3 (V2, Switch)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">blynk_3led.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#define BLYNK_PRINT Serial
+
+#define BLYNK_TEMPLATE_ID "TMPL3kIGgBEGJ"
+#define BLYNK_TEMPLATE_NAME "LED3"
+#define BLYNK_AUTH_TOKEN "xQWzP9LsdjK9sJDdO7ewef0oS9fzXMKN"
+
+#include &lt;WiFi.h&gt;
+#include &lt;WiFiClient.h&gt;
+#include &lt;BlynkSimpleEsp32.h&gt;
+
+char ssid[] = "AirFiber-Doof9i";
+char pass[] = "Sudhersan@143";
+
+#define LED1 2
+#define LED2 4
+#define LED3 5
+
+// LED 1
+BLYNK_WRITE(V0) {
+  digitalWrite(LED1, param.asInt());
+}
+
+// LED 2
+BLYNK_WRITE(V1) {
+  digitalWrite(LED2, param.asInt());
+}
+
+// LED 3
+BLYNK_WRITE(V2) {
+  digitalWrite(LED3, param.asInt());
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+}
+
+void loop() {
+  Blynk.run();
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 09: Web Browser Control -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 09</span>
+                    <h2 class="slide-title">Web Browser LED Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="wifi"></i> Hotspot Setup</h3>
+                            <p>SSID: <strong>"ESP32_LED_Server"</strong></p>
+                            <p>Password: <strong>"12345678"</strong></p>
+                            <p>IP: <strong>192.168.4.1</strong></p>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="cable"></i> Connection</h3>
+                            <p>LED Anode -> <strong>GPIO 2</strong></p>
+                            <p>LED Cathode -> <strong>GND</strong></p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">web_led_server.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+
+// WiFi Hotspot credentials
+const char* ssid = "ESP32_LED_Server";
+const char* password = "12345678";
+
+#define LED_PIN 2
+
+WebServer server(80);
+
+// HTML Web Page
+String webpage() {
+  String html = "&lt;!DOCTYPE html&gt;&lt;html&gt;";
+  html += "&lt;head&gt;&lt;title&gt;ESP32 LED Control&lt;/title&gt;";
+  html += "&lt;style&gt;";
+  html += "body{font-family:Arial;text-align:center;margin-top:50px;}";
+  html += "button{padding:20px 40px;font-size:20px;margin:10px;}";
+  html += "&lt;/style&gt;&lt;/head&gt;";
+  html += "&lt;body&gt;";
+  html += "&lt;h1&gt;ESP32 LED Control&lt;/h1&gt;";
+  html += "&lt;a href='/on'&gt;&lt;button&gt;LED ON&lt;/button&gt;&lt;/a&gt;";
+  html += "&lt;a href='/off'&gt;&lt;button&gt;LED OFF&lt;/button&gt;&lt;/a&gt;";
+  html += "&lt;/body&gt;&lt;/html&gt;";
+  return html;
+}
+
+// Root page
+void handleRoot() {
+  server.send(200, "text/html", webpage());
+}
+
+// LED ON
+void handleOn() {
+  digitalWrite(LED_PIN, HIGH);
+  server.send(200, "text/html", webpage());
+}
+
+// LED OFF
+void handleOff() {
+  digitalWrite(LED_PIN, LOW);
+  server.send(200, "text/html", webpage());
+}
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED_PIN, OUTPUT);
+
+  // Start ESP32 as Access Point
+  WiFi.softAP(ssid, password);
+  Serial.println("ESP32 Hotspot Started");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.softAPIP());
+
+  // Web server routes
+  server.on("/", handleRoot);
+  server.on("/on", handleOn);
+  server.on("/off", handleOff);
+
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 10: 3-LED Web Browser -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 10</span>
+                    <h2 class="slide-title">3-LED Web Control</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="wifi"></i> Hotspot Setup</h3>
+                            <p>SSID: <strong>"ESP32_3LED_Server"</strong></p>
+                            <p>Password: <strong>"12345678"</strong></p>
+                            <p>IP: <strong>192.168.4.1</strong></p>
+                        </div>
+                        <div class="card glass-smooth">
+                            <h3><i data-lucide="cable"></i> Connection</h3>
+                            <div class="pin-table">
+                                <div class="pin-row"><span>LED 1, 2, 3</span><span>GPIO 2, 4, 5</span></div>
+                                <div class="pin-row"><span>Common</span><span>GND</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">web_3led_server.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#include &lt;WiFi.h&gt;
+#include &lt;WebServer.h&gt;
+
+// Hotspot credentials
+const char* ssid = "ESP32_3LED_Server";
+const char* password = "12345678";
+
+#define LED1 2
+#define LED2 4
+#define LED3 5
+
+WebServer server(80);
+
+// HTML Page
+String webpage() {
+  String html = "&lt;!DOCTYPE html&gt;&lt;html&gt;";
+  html += "&lt;head&gt;&lt;title&gt;ESP32 3 LED Control&lt;/title&gt;";
+  html += "&lt;style&gt;";
+  html += "body{font-family:Arial;text-align:center;margin-top:40px;}";
+  html += "button{padding:15px 30px;font-size:18px;margin:10px;}";
+  html += "&lt;/style&gt;&lt;/head&gt;";
+  html += "&lt;body&gt;";
+  html += "&lt;h1&gt;ESP32 - 3 LED Control&lt;/h1&gt;";
+
+  html += "&lt;a href='/led1on'&gt;&lt;button&gt;LED 1 ON&lt;/button&gt;&lt;/a&gt;";
+  html += "&lt;a href='/led1off'&gt;&lt;button&gt;LED 1 OFF&lt;/button&gt;&lt;/a&gt;&lt;br&gt;";
+
+  html += "&lt;a href='/led2on'&gt;&lt;button&gt;LED 2 ON&lt;/button&gt;&lt;/a&gt;";
+  html += "&lt;a href='/led2off'&gt;&lt;button&gt;LED 2 OFF&lt;/button&gt;&lt;/a&gt;&lt;br&gt;";
+
+  html += "&lt;a href='/led3on'&gt;&lt;button&gt;LED 3 ON&lt;/button&gt;&lt;/a&gt;";
+  html += "&lt;a href='/led3off'&gt;&lt;button&gt;LED 3 OFF&lt;/button&gt;&lt;/a&gt;";
+
+  html += "&lt;/body&gt;&lt;/html&gt;";
+  return html;
+}
+
+// Handlers
+void handleRoot() {
+  server.send(200, "text/html", webpage());
+}
+
+void led1On() { digitalWrite(LED1, HIGH); handleRoot(); }
+void led1Off() { digitalWrite(LED1, LOW); handleRoot(); }
+
+void led2On() { digitalWrite(LED2, HIGH); handleRoot(); }
+void led2Off() { digitalWrite(LED2, LOW); handleRoot(); }
+
+void led3On() { digitalWrite(LED3, HIGH); handleRoot(); }
+void led3Off() { digitalWrite(LED3, LOW); handleRoot(); }
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+
+  // Start hotspot
+  WiFi.softAP(ssid, password);
+  Serial.print("Hotspot IP: ");
+  Serial.println(WiFi.softAPIP());
+
+  // Routes
+  server.on("/", handleRoot);
+  server.on("/led1on", led1On);
+  server.on("/led1off", led1Off);
+  server.on("/led2on", led2On);
+  server.on("/led2off", led2Off);
+  server.on("/led3on", led3On);
+  server.on("/led3off", led3Off);
+
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 11: IR -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 11</span>
+                    <h2 class="slide-title">IR Sensor Toggle LED</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="scan"></i> Setup</h3>
+                            <p>VCC -> 3.3V | GND -> GND</p>
+                            <p>IR_SENSOR -> GPIO 15 | LED_PIN -> GPIO 2</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">ir_toggle_led.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#define IR_SENSOR 15
+#define LED_PIN 2
+
+bool ledState = false;
+bool lastSensorState = HIGH;
+
+void setup() {
+  pinMode(IR_SENSOR, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  bool sensorState = digitalRead(IR_SENSOR);
+
+  // Detect only NEW object (edge detection)
+  if (sensorState == LOW && lastSensorState == HIGH) {
+    ledState = !ledState;              // TOGGLE LED
+    digitalWrite(LED_PIN, ledState);
+    delay(300); // simple debounce
+  }
+
+  lastSensorState = sensorState;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 12: DHT11 -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 12</span>
+                    <h2 class="slide-title">DHT11 IoT Climate</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="thermometer"></i> Setup</h3>
+                            <p>VCC -> 3.3V | GND -> GND</p>
+                            <p>DATA -> GPIO 4</p>
+                            <p>Library: <strong>DHT sensor library</strong> (Adafruit)</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">climate_iot.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#include "DHT.h"
+#define BLYNK_TEMPLATE_ID "TMPLxxxxxx"
+#include &lt;WiFi.h&gt;
+#include &lt;BlynkSimpleEsp32.h&gt;
+
+DHT dht(4, DHT11);
+
+void setup() {
+  dht.begin();
+  Blynk.begin("AuthToken", "SSID", "PASS");
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  Blynk.virtualWrite(V1, temp); // Virtual Pin V1
+  Blynk.run();
+  delay(2000);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 13: Ultrasonic -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 13</span>
+                    <h2 class="slide-title">Ultrasonic Radar</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="radar"></i> Pins</h3>
+                            <p>VCC -> 5V | GND -> GND</p>
+                            <p>TRIG -> GPIO 5 | ECHO -> GPIO 18</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">ultrasonic.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>void setup() {
+  pinMode(5, OUTPUT); // Trig
+  pinMode(18, INPUT); // Echo
+  Serial.begin(115200);
+}
+
+void loop() {
+  digitalWrite(5, LOW); delayMicroseconds(2);
+  digitalWrite(5, HIGH); delayMicroseconds(10);
+  digitalWrite(5, LOW);
+  
+  long duration = pulseIn(18, HIGH);
+  int distance = duration * 0.034 / 2;
+  Serial.print("Dist: "); Serial.println(distance);
+  delay(500);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 14: Proximity -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 14</span>
+                    <h2 class="slide-title">Proximity Alarm</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="alert-circle"></i> Rule</h3>
+                            <p>If object distance < 5cm, LED 2 blinks fast.</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">proximity_alarm.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>void setup() {
+  pinMode(5, OUTPUT); pinMode(18, INPUT);
+  pinMode(2, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(5, LOW); delayMicroseconds(2);
+  digitalWrite(5, HIGH); delayMicroseconds(10);
+  digitalWrite(5, LOW);
+  long dur = pulseIn(18, HIGH);
+  int dist = dur * 0.034 / 2;
+  
+  if (dist < 5) { // Under 5cm
+    digitalWrite(2, HIGH); delay(100);
+    digitalWrite(2, LOW);  delay(100);
+  } else {
+    digitalWrite(2, LOW);
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project 15: DHT11 -->
+        <section class="slide project-slide">
+            <div class="slide-content">
+                <div class="header-section">
+                    <span class="project-num">Project 15</span>
+                    <h2 class="slide-title">DHT11 Temperature</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="info-column">
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="thermometer"></i> Setup</h3>
+                            <p>VCC -> 3.3V | GND -> GND</p>
+                            <p>DATA -> GPIO 4</p>
+                        </div>
+                        <div class="card glass-elevated">
+                            <h3><i data-lucide="info"></i> Info</h3>
+                            <p>Reads Temp & Humidity every 2 seconds.</p>
+                            <p>Requires DHT Library by Adafruit.</p>
+                        </div>
+                    </div>
+                    <div class="code-column">
+                        <div class="code-window">
+                            <div class="window-bar">
+                                <span class="filename">dht11_test.ino</span>
+                                <button class="btn-copy" onclick="copyCode(this)"><i data-lucide="copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code>#include "DHT.h"
+
+#define DHTPIN 4      // GPIO where DHT11 is connected
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature(); // Celsius
+
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+  Serial.println("---------------------");
+  delay(2000);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Slide (Slide 16) -->
+        <section class="slide" id="contact">
+            <div class="slide-content text-center">
+                <span class="badge">GET IN TOUCH</span>
+                <h2 class="slide-title" style="border: none;">Connect with <span class="gradient-text">Sudharsan</span>
+                </h2>
+                <p class="subtitle">Vijaya Embedded System | Expert IoT Solutions</p>
+
+                <div class="dashboard-grid" style="margin-top: 2rem;">
+                    <a href="tel:9344966327" class="dash-card" style="text-decoration: none; color: inherit;">
+                        <span style="opacity: 1;"><i data-lucide="phone"></i></span>
+                        <div style="text-align: left;">
+                            <div style="font-size: 0.8rem; opacity: 0.6;">Call/WhatsApp</div>
+                            <div style="font-weight: 700;">9344966327</div>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sudhersan-v-457434289?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                        target="_blank" class="dash-card" style="text-decoration: none; color: inherit;">
+                        <span style="opacity: 1;"><i data-lucide="linkedin"></i></span>
+                        <div style="text-align: left;">
+                            <div style="font-size: 0.8rem; opacity: 0.6;">LinkedIn</div>
+                            <div style="font-weight: 700;">Sudhersan V</div>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/single___king_07?igsh=MTg5MHYxZjk5Y2tjNw==" target="_blank"
+                        class="dash-card" style="text-decoration: none; color: inherit;">
+                        <span style="opacity: 1;"><i data-lucide="instagram"></i></span>
+                        <div style="text-align: left;">
+                            <div style="font-size: 0.8rem; opacity: 0.6;">Instagram</div>
+                            <div style="font-weight: 700;">@single___king_07</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Slide (Slide 17) -->
+        <section class="slide" id="conclusion">
+            <div class="slide-content text-center">
+                <h2 class="slide-title">Ready to <span class="gradient-text">Deploy</span></h2>
+                <p class="subtitle">All codes verified. Happy Tinkering!</p>
+                <div class="final-actions">
+                    <button class="btn-primary" onclick="goToSlide(3)">Return to Hub</button>
+                    <button class="btn-primary"
+                        style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border);"
+                        onclick="goToSlide(19)">Contact Author</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Side Controls -->
+    <div class="side-controls">
+        <button class="nav-btn" onclick="prevSlide()"><i data-lucide="arrow-up"></i></button>
+        <div class="slide-info">
+            <span id="current-idx">01</span>
+            <div class="separator"></div>
+            <span>21</span>
+        </div>
+        <button class="nav-btn" onclick="nextSlide()"><i data-lucide="arrow-down"></i></button>
+    </div>
+
+
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
